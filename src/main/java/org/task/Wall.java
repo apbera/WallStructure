@@ -28,6 +28,11 @@ public class Wall implements Structure{
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public int count() {
+        return (int) blocks.stream().flatMap(this::unpackBlock).count();
+    }
+
     private Stream<Block> unpackBlock(Block block){
         if(block instanceof CompositeBlock){
             return ((CompositeBlock) block).getBlocks().stream();
@@ -35,11 +40,4 @@ public class Wall implements Structure{
             return Stream.of(block);
         }
     }
-
-    @Override
-    public int count() {
-        return (int) blocks.stream().flatMap(this::unpackBlock).count();
-    }
-
-
 }
